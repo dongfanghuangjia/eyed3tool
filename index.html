@@ -2,57 +2,59 @@
 <html>
     <head>
         <title>eyeD3 Tool</title>
+        <script src="./code.js"></script>
     </head>
     <body>
         <form>
             <table>
                 <tr>
                     <td>Full name (han'yu): </td>
-                    <td><input type="text" id="txt_fullzh"></td>
+                    <td><input type="text" id="txt_fullzh" style="width: 500px;"></td>
                 </tr>
                 <tr>
                     <td>Full name (pinyin): </td>
-                    <td><input type="text" id="txt_fullpy"></td>
+                    <td><input type="text" id="txt_fullpy" style="width: 500px;"></td>
                 </tr>
                 <tr>
                     <td>作詞：</td>
-                    <td><input type="text" id="txt_lyricszh"></td>
+                    <td><input type="text" id="txt_lyricszh" style="width: 500px;"></td>
                 </tr>
                 <tr>
                     <td>Lyricist (pinyin):</td>
-                    <td><input type="text" id="txt_lyricspy"></td>
+                    <td><input type="text" id="txt_lyricspy" style="width: 500px;"></td>
                 </tr>
                 <tr>
                     <td>作曲：</td>
-                    <td><input type="text" id="txt_composerzh"></td>
+                    <td><input type="text" id="txt_composerzh" style="width: 500px;"></td>
                 </tr>
                 <tr>
                     <td>Composer (pinyin):</td>
-                    <td><input type="text" id="txt_composerpy"></td>
+                    <td><input type="text" id="txt_composerpy" style="width: 500px;"></td>
                 </tr>
                 <tr>
                     <td colspan="2"><center>
-                        <input type="button" value="Generate code">
+                        <input id="btt_generate" type="button" value="Generate code" onclick="btt_generate_onclick()">
+                        <input id="btt_reset" type="button" value="Reset" onclick="btt_reset_onclick()">
                     </center></td>
                 </tr>
                 <tr>
                     <td>Artist: </td>
-                    <td><input type="text" id="txt_artist" readonly></td>
+                    <td><input type="text" id="txt_artist" style="width: 500px;" readonly></td>
                 </tr>
                 <tr>
                     <td>Track title:</td>
-                    <td><input type="text" id="txt_tracktitle" readonly></td>
+                    <td><input type="text" id="txt_tracktitle" style="width: 500px;" readonly></td>
                 </tr>
                 <tr>
                     <td>eyeD3 code: </td>
                     <td>
-                        <textarea id="txt_id3" rows="3" readonly></textarea>
+                        <textarea id="txt_id3" rows="3" style="width: 500px;" readonly></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>Lyrics file header: </td>
                     <td>
-                        <textarea id="txt_lyheader" rows="6" readonly></textarea>
+                        <textarea id="txt_lyheader" rows="6" style="width: 500px;" readonly></textarea>
                     </td>
                 </tr>
             </table>

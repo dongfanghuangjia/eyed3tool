@@ -43,11 +43,16 @@ function btt_generate_onclick() {
         ' --artist \"' + Tartist + '\"' + 
         ' --title \"' + Ttracktitle + '\"'+
         ' --add-lyrics \"ly.txt\" ms.mp3'
-        let flyr = tlyrz + ' ' + String.fromCharCode(12298) + str_proper(tlyrp) + String.fromCharCode(12299);
-        let fcom = tcomz + ' ' + String.fromCharCode(12298) + str_proper(tcomp) + String.fromCharCode(12299);
+        let flyr = tlyrz + ' ' + String.fromCharCode(12298) + str_proper(tlyrp) + 
+        String.fromCharCode(12299);
+        let fcom = tcomz + ' ' + String.fromCharCode(12298) + str_proper(tcomp) + 
+        String.fromCharCode(12299);
         let flyfile = '';
         flyfile += artzh + ' - ' + trnzh + '\n';
-        flyfile += String.fromCharCode(12298) + str_proper(artpy) + ' - ' + trnpy + String.fromCharCode(12299) + '\n';
+        flyfile += String.fromCharCode(12298) + str_proper(artpy) + ' - ' + trnpy + 
+        String.fromCharCode(12299) + '\n\n';
+        flyfile += '作詞：' + flyr + '\n';
+        flyfile += '作曲：' + fcom ;
         document.getElementById("txt_lyheader").value = flyfile;
     }
 }

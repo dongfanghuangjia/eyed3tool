@@ -32,6 +32,24 @@
                     <td><input type="text" id="txt_composerpy" style="width: 500px;"></td>
                 </tr>
                 <tr>
+                    <td colspan="2">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>Lyrics han'yu:</td>
+                                <td>Lyrics pinyin:</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea id="txt_lyrzh" rows="8" style="width: 98%;"></textarea>
+                                </td>
+                                <td>
+                                    <textarea id="txt_lyrpy" rows="8" style="width: 98%;"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2"><center>
                         <input id="btt_generate" type="button" value="Generate code" onclick="btt_generate_onclick()">
                         <input id="btt_reset" type="button" value="Reset" onclick="btt_reset_onclick()">
@@ -48,7 +66,7 @@
                 <tr>
                     <td>eyeD3 code: </td>
                     <td>
-                        <textarea id="txt_id3" rows="3" style="width: 500px;" readonly></textarea>
+                        <textarea id="txt_id3" rows="4" style="width: 500px;" readonly></textarea>
                     </td>
                 </tr>
                 <tr>

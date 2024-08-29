@@ -55,6 +55,8 @@ function btt_generate_onclick() {
         flyfile += '作曲：' + fcom ;
         document.getElementById("txt_lyheader").value = flyfile;
     }
+    let lyrpy = document.getElementById("txt_lyrpy").value;
+    document.getElementById("txt_lyrzh").value = gpinyin(lyrpy);
 }
 function str_proper(str) {
     var rstr = str.substr(0,1).toUpperCase();
@@ -72,5 +74,36 @@ function str_proper(str) {
     return rstr;
 }
 function gpinyin(str) {
-
+    let rstr = str.toLowerCase();
+    rstr = rstr.replaceAll('b',' b');
+    rstr = rstr.replaceAll('p',' p');
+    rstr = rstr.replaceAll('m',' m');
+    rstr = rstr.replaceAll('f',' f');
+    rstr = rstr.replaceAll('d',' d');
+    rstr = rstr.replaceAll('t',' t');
+    rstr = rstr.replaceAll('l',' l');
+    rstr = rstr.replaceAll('k',' k');
+    rstr = rstr.replaceAll('j',' j');
+    rstr = rstr.replaceAll('q',' q');
+    rstr = rstr.replaceAll('x',' x');
+    rstr = rstr.replaceAll('z',' z');
+    rstr = rstr.replaceAll('c',' c');
+    rstr = rstr.replaceAll('s',' s');
+    rstr = rstr.replaceAll('h',' h');
+    rstr = rstr.replaceAll('z ','z');
+    rstr = rstr.replaceAll('c ','c');
+    rstr = rstr.replaceAll('s ','s');
+    rstr = rstr.replaceAll('ng','NG');
+    rstr = rstr.replaceAll('n',' n');
+    rstr = rstr.replaceAll('g',' g');
+    rstr = rstr.replaceAll('NG','ng');
+    rstr = rstr.replaceAll(' n ','n ');
+    rstr = rstr.replaceAll(' g ','g ');
+    rstr = rstr.replaceAll(' n\n','n\n');
+    rstr = rstr.replaceAll(' g\n','g\n');
+    rstr = rstr.replaceAll('y',' y');
+    rstr = rstr.replaceAll('r',' r');
+    rstr = rstr.replaceAll(String.fromCharCode(0x27),' ');
+    rstr = rstr.replaceAll('  ',' ');
+    return rstr.trim();
 }

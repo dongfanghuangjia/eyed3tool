@@ -9,6 +9,8 @@ function btt_reset_onclick() {
     document.getElementById("txt_tracktitle").value = '';
     document.getElementById("txt_id3").value = '';
     document.getElementById("txt_lyheader").value = '';
+    document.getElementById("txt_lyrzh").value = '';
+    document.getElementById("txt_lyrpy").value = '';
 }
 function btt_generate_onclick() {
     var tfullz, tfullp, tlyrz, tlyrp, tcomz, tcomp;
@@ -20,8 +22,7 @@ function btt_generate_onclick() {
     tcomp = document.getElementById("txt_composerpy").value;
     if(tfullz.indexOf('_')<0 && tfullz.indexOf('-')<0 || 
     tfullp.indexOf('_')<0 && tfullp.indexOf('-')<0) {
-        document.getElementById("txt_artist").value = 'Error!!!';
-        document.getElementById("txt_tracktitle").value = 'Error!!!';
+        alert('Error! Check data input.');
     }
     else {
         let hpfzh, hpfpy;
@@ -30,8 +31,8 @@ function btt_generate_onclick() {
         let artzh, artpy, trnzh, trnpy;
         artzh = tfullz.substr(0, hpfzh - 1).trim();
         trnzh = tfullz.substr(hpfzh + 1, tfullz.length - hpfzh - 1).trim();
-        artpy = tfullp.substr(0, hpfpy - 1).trim();
-        trnpy = tfullp.substr(hpfpy + 1, tfullp.length - hpfpy - 1).trim();
+        artpy = gpinyin(tfullp.substr(0, hpfpy - 1).trim());
+        trnpy = gpinyin(tfullp.substr(hpfpy + 1, tfullp.length - hpfpy - 1).trim());
         let Tartist = artzh + ' ' + String.fromCharCode(12298) + str_proper(artpy) + 
         String.fromCharCode(12299);
         let Ttracktitle = trnzh + ' ' + String.fromCharCode(12298) + trnpy + 
@@ -43,21 +44,23 @@ function btt_generate_onclick() {
         ' --artist \"' + Tartist + '\"' + 
         ' --title \"' + Ttracktitle + '\"'+
         ' --add-lyrics \"ly.txt\" ms.mp3'
-        let flyr = tlyrz + ' ' + String.fromCharCode(12298) + str_proper(tlyrp) + 
+        let flyr = tlyrz + ' ' + String.fromCharCode(12298) + str_proper(gpinyin(tlyrp)) + 
         String.fromCharCode(12299);
-        let fcom = tcomz + ' ' + String.fromCharCode(12298) + str_proper(tcomp) + 
+        let fcom = tcomz + ' ' + String.fromCharCode(12298) + str_proper(gpinyin(tcomp)) + 
         String.fromCharCode(12299);
         let flyfile = '';
         flyfile += artzh + ' - ' + trnzh + '\n';
         flyfile += String.fromCharCode(12298) + str_proper(artpy) + ' - ' + trnpy + 
         String.fromCharCode(12299) + '\n\n';
         flyfile += '作詞：' + flyr + '\n';
-        flyfile += '作曲：' + fcom ;
+        flyfile += '作曲：' + fcom + '\n\n';
+
         document.getElementById("txt_lyheader").value = flyfile;
     }
-    let lyrpy = document.getElementById("txt_lyrpy").value;
-    //document.getElementById("txt_lyrzh").value = gpinyin(lyrpy);
-    alert(gpinyin(lyrpy));
+    let lyrpy = gpinyin(document.getElementById("txt_lyrpy").value);
+    let lyrzh = document.getElementById("txt_lyrzh").value;
+    //alert(lyrzh.indexOf('\n',10));
+    //alert('.' + lyrzh.substr(10,8));
 }
 function str_proper(str) {
     var rstr = str.substr(0,1).toUpperCase();
@@ -144,6 +147,15 @@ function gpinyin(str) {
     rstr = rstr.replaceAll('ìn','ìN');
     rstr = rstr.replaceAll('ùn','ùN');
     rstr = rstr.replaceAll('ǜn','ǜN');
+    // Check n-bug
+    for(var i=1;i<rstr.length-1;i++) {
+        if(rstr.charAt(i)=='N' && checkfinals(rstr.charAt(i+1))) {
+            let r1, r2;
+            r1 = rstr.substr(0,i);
+            r2 = rstr.substr(i+1,rstr.length-i-1);
+            rstr = r1 + 'n' + r2;
+        }
+    }
     // Split n, g, r initial
     rstr = rstr.replaceAll('n',' n');
     rstr = rstr.replaceAll('g',' g');
@@ -202,4 +214,13 @@ function gpinyin(str) {
     rstr = rstr.replaceAll(String.fromCharCode(0x27),' ');
     rstr = rstr.replaceAll('  ',' ');
     return rstr.trim();
+}
+const zhfinals = ['a','e','i','o','u','ü','ā','ē','ī','ō','ū','ǖ','á','é','ó','í','ú','ǘ',
+    'ǎ','ě','ǐ','ǒ','ǔ','ǚ','à','è','ì','ò','ù','ǜ'];
+function checkfinals(s) {
+    let chkf = false;
+    for(var i=0;i<zhfinals.length;i++) {
+        if(s == zhfinals[i]) chkf = true;
+    }
+    return chkf;
 }

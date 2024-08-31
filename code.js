@@ -22,7 +22,7 @@ function btt_generate_onclick() {
     tcomp = document.getElementById("txt_composerpy").value;
     if(tfullz.indexOf('_')<0 && tfullz.indexOf('-')<0 || 
     tfullp.indexOf('_')<0 && tfullp.indexOf('-')<0) {
-        //alert('Error! Check data input.');
+        alert('Error! Check data input.');
     }
     else {
         let hpfzh, hpfpy;
@@ -54,9 +54,7 @@ function btt_generate_onclick() {
         String.fromCharCode(12299) + '\n\n';
         flyfile += '作詞：' + flyr + '\n';
         flyfile += '作曲：' + fcom + '\n\n';
-        
-    }
-    let lyrpy = gpinyin(document.getElementById("txt_lyrpy").value);
+        let lyrpy = gpinyin(document.getElementById("txt_lyrpy").value);
         let lyrzh = document.getElementById("txt_lyrzh").value;
         let lyricsfull = '';
         var izh, ipy; izh = ipy = -1;
@@ -72,7 +70,8 @@ function btt_generate_onclick() {
         npy = (lyrpy.indexOf(', ', ipy+1) != -1) ? lyrpy.indexOf(', ', ipy+1) : lyrpy.length;
         lyricsfull += lyrzh.substr(izh+1, nzh - izh - 1).trim() + '\n';
         lyricsfull += lyrpy.substr(ipy+1, npy - ipy - 1).trim() + '\n';
-        document.getElementById("txt_lyheader").value = /*flyfile + */lyricsfull.trim();
+        document.getElementById("txt_lyheader").value = flyfile + lyricsfull.trim();
+    }
 }
 function str_proper(str) {
     var rstr = str.substr(0,1).toUpperCase();

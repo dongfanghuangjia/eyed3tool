@@ -22,7 +22,7 @@ function btt_generate_onclick() {
     tcomp = document.getElementById("txt_composerpy").value;
     if(tfullz.indexOf('_')<0 && tfullz.indexOf('-')<0 || 
     tfullp.indexOf('_')<0 && tfullp.indexOf('-')<0) {
-        alert('Error! Check data input.');
+        //alert('Error! Check data input.');
     }
     else {
         let hpfzh, hpfpy;
@@ -54,13 +54,25 @@ function btt_generate_onclick() {
         String.fromCharCode(12299) + '\n\n';
         flyfile += '作詞：' + flyr + '\n';
         flyfile += '作曲：' + fcom + '\n\n';
-
-        document.getElementById("txt_lyheader").value = flyfile;
+        
     }
     let lyrpy = gpinyin(document.getElementById("txt_lyrpy").value);
-    let lyrzh = document.getElementById("txt_lyrzh").value;
-    //alert(lyrzh.indexOf('\n',10));
-    //alert('.' + lyrzh.substr(10,8));
+        let lyrzh = document.getElementById("txt_lyrzh").value;
+        let lyricsfull = '';
+        var izh, ipy; izh = ipy = -1;
+        while(lyrzh.indexOf('\n', izh+1) != -1 && lyrpy.indexOf(', ', ipy+1) != -1) {
+            var nzh, npy;
+            nzh = lyrzh.indexOf('\n', izh+1);
+            npy = lyrpy.indexOf(', ', ipy+1);
+            lyricsfull += lyrzh.substr(izh+1, nzh - izh - 1).trim() + '\n';
+            lyricsfull += lyrpy.substr(ipy+1, npy - ipy - 1).trim() + '\n';
+            izh = nzh; ipy = npy;
+        }
+        nzh = (lyrzh.indexOf('\n', izh+1) != -1) ? lyrzh.indexOf('\n', izh+1) : lyrzh.length;
+        npy = (lyrpy.indexOf(', ', ipy+1) != -1) ? lyrpy.indexOf(', ', ipy+1) : lyrpy.length;
+        lyricsfull += lyrzh.substr(izh+1, nzh - izh - 1).trim() + '\n';
+        lyricsfull += lyrpy.substr(ipy+1, npy - ipy - 1).trim() + '\n';
+        document.getElementById("txt_lyheader").value = /*flyfile + */lyricsfull.trim();
 }
 function str_proper(str) {
     var rstr = str.substr(0,1).toUpperCase();
@@ -154,6 +166,15 @@ function gpinyin(str) {
             r1 = rstr.substr(0,i);
             r2 = rstr.substr(i+1,rstr.length-i-1);
             rstr = r1 + 'n' + r2;
+        }
+    }
+    // Check ng-bug
+    for(var i=1;i<rstr.length-2;i++) {
+        if(rstr.substr(i,2)=='NG' && checkfinals(rstr.charAt(i+2))) {
+            let r1, r2;
+            r1 = rstr.substr(0,i);
+            r2 = rstr.substr(i+2,rstr.length-i-2);
+            rstr = r1 + 'Ng' + r2;
         }
     }
     // Split n, g, r initial

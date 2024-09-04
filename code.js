@@ -167,6 +167,18 @@ function gpinyin(str) {
             rstr = r1 + 'n' + r2;
         }
     }
+    // Check er-bug
+    for(var i=1;i<rstr.length-1;i++) {
+        if(rstr.charAt(i)=='r' && !checkfinals(rstr.charAt(i+1))) {
+            let r1, r2;
+            r1 = rstr.substr(0,i);
+            r2 = rstr.substr(i+1,rstr.length-i-1);
+            rstr = r1 + 'R' + r2;
+        }
+    }
+    if(rstr.charAt(rstr.length-1) == 'r') {
+        rstr = rstr.substr(0,rstr.length - 1) + 'R';
+    }
     // Check ng-bug
     for(var i=1;i<rstr.length-2;i++) {
         if(rstr.substr(i,2)=='NG' && checkfinals(rstr.charAt(i+2))) {
@@ -180,6 +192,7 @@ function gpinyin(str) {
     rstr = rstr.replaceAll('n',' n');
     rstr = rstr.replaceAll('g',' g');
     rstr = rstr.replaceAll('r',' r');
+    rstr = rstr.replaceAll('R','r');
     // Fix any finals of n, g and r
     rstr = rstr.replaceAll('aNG','ang');
     rstr = rstr.replaceAll('aN','an');
